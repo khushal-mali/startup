@@ -1,7 +1,7 @@
 import React from "react";
 import Ping from "./Ping";
 import { client } from "@/sanity/lib/client";
-import { STARTUP_VIEW_QUERY } from "@/sanity/lib/queries";
+import { STARTUP_VIEWS_QUERY } from "@/sanity/lib/queries";
 import { writeClient } from "@/sanity/lib/write-client";
 import { unstable_after as after } from "next/server";
 
@@ -12,7 +12,7 @@ type Props = {
 const View = async ({ id }: Props) => {
   const { views: totalViews } = await client
     .withConfig({ useCdn: false })
-    .fetch(STARTUP_VIEW_QUERY, { id });
+    .fetch(STARTUP_VIEWS_QUERY, { id });
 
   after(async () => {
     await writeClient
