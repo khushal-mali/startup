@@ -4,10 +4,12 @@ import { client } from "./sanity/lib/client";
 import { AUTHOR_BY_GITHUB_ID_QUERY } from "./sanity/lib/queries";
 import { writeClient } from "./sanity/lib/write-client";
 
+//   @ts-expect-error
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [GitHub],
   callbacks: {
     async signIn({
+      //   @ts-expect-error
       user: { name, email, image },
       //   @ts-expect-error
       profile: { id, login, bio },
@@ -33,6 +35,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return true;
     },
 
+    //   @ts-expect-error
     async jwt({ account, token, profile }) {
       if (account && profile) {
         const user = await client
@@ -47,6 +50,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return token;
     },
 
+    //   @ts-expect-error
     async session({ session, token }) {
       Object.assign(session, { id: token?.id });
       return session;
